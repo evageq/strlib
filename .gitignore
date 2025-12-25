@@ -1,0 +1,9 @@
+*.log
+*.out
+compile_commands.json
+.cache
+
+build/*
+project.tasks
+pvs.log.*
+strlib
