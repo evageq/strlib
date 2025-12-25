@@ -185,6 +185,30 @@ string_append_len(string_t *str, const char_t *s, size_t len)
     return string_insert_len(str, s, len, -1);
 }
 
+inline string_t *
+string_prepend_char(string_t *dst, const char_t c)
+{
+    return string_insert_char(dst, c, 0);
+}
+
+inline string_t *
+string_prepend_cstring(string_t *dst, const char_t *s)
+{
+    return string_insert_cstring(dst, s, 0);
+}
+
+inline string_t *
+string_prepend_string(string_t *dst, const string_t *src)
+{
+    return string_insert_string(dst, src, 0);
+}
+
+inline string_t *
+string_prepend_len(string_t *str, const char_t *s, size_t len)
+{
+    return string_insert_len(str, s, len, 0);
+}
+
 static inline bool
 is_trim(char_t ch)
 {

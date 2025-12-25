@@ -24,9 +24,6 @@ string_t *string_new_sized(size_t len);
 
 string_t *string_expand(string_t *s, size_t len);
 
-string_t *string_append_len(string_t *str, const char_t *s, size_t len);
-string_t *string_append(string_t *str, const char_t *s);
-
 string_t *string_toupper(string_t *str);
 string_t *string_tolower(string_t *str);
 
@@ -44,7 +41,6 @@ string_t *string_insert_string(string_t *dst, const string_t *src,
         char_t: string_insert_char,                      \
         char_t *: string_insert_cstring,                 \
         string_t *: string_insert_string)(dst, src, pos)
-
 string_t *string_insert_len(string_t *dst, const char_t *src, ssize_t pos,
                             ssize_t len);
 
@@ -62,6 +58,18 @@ string_t *string_append_string(string_t *dst, const string_t *src);
         char_t: string_append_char,                 \
         char_t *: string_append_cstring,            \
         string_t *: string_append_string)(dst, src)
+string_t *string_append_len(string_t *str, const char_t *s, size_t len);
+
+string_t *string_prepend_char(string_t *dst, char_t src);
+string_t *string_prepend_cstring(string_t *dst, const char_t *src);
+string_t *string_prepend_string(string_t *dst, const string_t *src);
+#define string_prepend(dst, src)                     \
+    _Generic((src),                                  \
+        int: string_prepend_char,                    \
+        char_t: string_prepend_char,                 \
+        char_t *: string_prepend_cstring,            \
+        string_t *: string_prepend_string)(dst, src)
+string_t *string_prepend_len(string_t *str, const char_t *s, size_t len);
 
 // string_t* string_split(string_t *str, char_t terminator);
 // void string_tokenize(const string_t *str);
