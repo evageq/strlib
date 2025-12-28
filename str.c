@@ -311,8 +311,10 @@ string_compare(const string_t *str1, const string_t *str2)
 string_t **
 string_split(string_t *str, char_t sep)
 {
-#define STRCHR_LOOP(p_ch, p_str, sep)                                       \
-    for (p_ch = p_str->buf; (p_ch = memchr(p_ch, sep, p_str->len)) != NULL; \
+#define STRCHR_LOOP(p_ch, p_str, sep)                                 \
+    for (p_ch = p_str->buf;                                           \
+         (p_ch = memchr(p_ch, sep, p_str->len - (p_ch - p_str->buf))) \
+         != NULL;                                                     \
          ++p_ch)
 
     size_t cnt = 1; // store NULL
