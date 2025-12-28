@@ -58,12 +58,12 @@ string_t *
 string_new_sized(size_t len)
 {
     string_t *str = malloc(sizeof(*str));
+    assert(str != NULL);
     if (str == NULL)
     {
         exit(-1);
     }
-    // assert(str != NULL);
-    memset(str, 0, sizeof(*str));
+    *str = (string_t){};
     string_expand(str, MAX(len, 64));
     return str;
 }
