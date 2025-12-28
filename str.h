@@ -71,8 +71,8 @@ string_t *string_prepend_string(string_t *dst, const string_t *src);
         string_t *: string_prepend_string)(dst, src)
 string_t *string_prepend_len(string_t *str, const char_t *s, size_t len);
 
-// string_t* string_split(string_t *str, char_t terminator);
-// void string_tokenize(const string_t *str);
+string_t** string_split(string_t *str, char_t sep);
+void string_split_free(string_t **ar);
 
 void string_free(string_t *str);
 char_t *string_free_and_steal(string_t *str);

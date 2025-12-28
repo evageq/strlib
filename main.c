@@ -6,11 +6,15 @@
 
 int main()
 {
-    string_t *str = string_new("aaabb");
-    string_t *str2 = string_new("faabz");
-    string_insert(str, str2, 1);
-    printf("%s", str->buf);
 
+    string_t *str = string_new("Hello world, !");
+    string_t **str_split = string_split(str, ' ');
+    for (size_t i = 0; str_split[i] != NULL; ++i)
+    {
+        printf("%s\n", str_split[i]->buf);
+    }
+
+    string_split_free(str_split);
 
     return 0;
 }
