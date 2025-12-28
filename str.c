@@ -308,11 +308,12 @@ string_compare(const string_t *str1, const string_t *str2)
     }
 }
 
-string_t** string_split(string_t *str, char_t sep)
+string_t **
+string_split(string_t *str, char_t sep)
 {
-#define STRCHR_LOOP(p_ch, p_str, sep)                   \
-    for (p_ch = p_str->buf;                     \
-         (p_ch = memchr(p_ch, sep, p_str->len)) != NULL; ++p_ch)
+#define STRCHR_LOOP(p_ch, p_str, sep)                                       \
+    for (p_ch = p_str->buf; (p_ch = memchr(p_ch, sep, p_str->len)) != NULL; \
+         ++p_ch)
 
     size_t cnt = 1; // store NULL
     char_t *p_ch;
@@ -323,13 +324,10 @@ string_t** string_split(string_t *str, char_t sep)
         ++cnt;
     }
 
-    STRCHR_LOOP(p_ch, str, sep)
-    {
-        ++cnt;
-    }
+    STRCHR_LOOP(p_ch, str, sep) { ++cnt; }
 
     string_t **str_split_ar = malloc(sizeof(*str_split_ar) * cnt);
-    str_split_ar[cnt-1] = NULL;
+    str_split_ar[cnt - 1] = NULL;
 
     size_t pos = 0;
     ssize_t prev_pos = -1;
@@ -338,17 +336,20 @@ string_t** string_split(string_t *str, char_t sep)
     {
         size_t pos = p_ch - str->buf;
         size_t chunk_len = pos - prev_pos - 1LL;
-        str_split_ar[id++] = string_new_len(str->buf + prev_pos + 1, chunk_len);
+        str_split_ar[id++]
+            = string_new_len(str->buf + prev_pos + 1, chunk_len);
         prev_pos = pos;
-        assert(id <= cnt-1);
+        assert(id <= cnt - 1);
     }
-    str_split_ar[id] = string_new_len(str->buf + prev_pos + 1, str->len - prev_pos - 1LL);
-    
+    str_split_ar[id]
+        = string_new_len(str->buf + prev_pos + 1, str->len - prev_pos - 1LL);
+
     return str_split_ar;
 #undef STRCHR_LOOP
 }
 
-void string_split_free(string_t **ar)
+void
+string_split_free(string_t **ar)
 {
     string_t *tmp;
     size_t i = 0;
