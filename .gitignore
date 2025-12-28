@@ -7,3 +7,4 @@ build/*
 project.tasks
 pvs.log.*
 strlib
+main.c
