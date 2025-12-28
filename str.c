@@ -286,25 +286,41 @@ string_tolower(string_t *str)
     return str;
 }
 
+/* a < b */
 bool
 string_compare(const string_t *str1, const string_t *str2)
 {
-    if (str1->len == str2->len)
+    size_t n = MIN(str1->len, str2->len);
+
+    bool flag= true;
+    for (size_t i = 0; i < n; ++i)
     {
-        bool flag = true;
-        for (size_t i = 0; i < str1->len; ++i)
+        if (str1->buf[i] != str2->buf[i])
         {
-            flag &= str1->buf[i] <= str2->buf[i];
+            return str1->buf[i] < str2->buf[i];
         }
-        return flag;
     }
-    else if (str1->len < str2->len)
+
+    return false;
+}
+
+int
+string_compare_lexic(const string_t *str1, const string_t *str2)
+{
+    if (str1->len == str2->len && memcmp(str1->buf, str2->buf, str1->len) == 0)
     {
-        return true;
+        return STRING_COMPARE_EQUAL;
     }
     else
     {
-        return false;
+        if (string_compare(str1, str2) == true)
+        {
+            return STRING_COMPARE_TRUE;
+        }
+        else
+        {
+            return STRING_COMPARE_FALSE;
+        }
     }
 }
 
