@@ -326,7 +326,10 @@ string_split(string_t *str, char_t sep)
         ++cnt;
     }
 
-    STRCHR_LOOP(p_ch, str, sep) { ++cnt; }
+    STRCHR_LOOP(p_ch, str, sep)
+    {
+        ++cnt;
+    }
 
     string_t **str_split_ar = malloc(sizeof(*str_split_ar) * cnt);
     str_split_ar[cnt - 1] = NULL;
