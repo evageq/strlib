@@ -58,10 +58,9 @@ string_t *
 string_new_sized(size_t len)
 {
     string_t *str = malloc(sizeof(*str));
-    assert(str != NULL);
     if (str == NULL)
     {
-        exit(-1);
+        abort();
     }
     *str = (string_t){};
     string_expand(str, MAX(len, 64));
@@ -94,7 +93,10 @@ string_expand(string_t *str, size_t len)
     }
 
     char_t *p_tmp_buf = realloc(str->buf, alloc);
-    assert(p_tmp_buf != NULL);
+    if (p_tmp_buf == NULL)
+    {
+        abort();
+    }
     str->buf = p_tmp_buf;
     str->alloc = alloc;
 
@@ -292,7 +294,7 @@ string_compare(const string_t *str1, const string_t *str2)
 {
     size_t n = MIN(str1->len, str2->len);
 
-    bool flag= true;
+    bool flag = true;
     for (size_t i = 0; i < n; ++i)
     {
         if (str1->buf[i] != str2->buf[i])
@@ -348,6 +350,10 @@ string_split(string_t *str, char_t sep)
     }
 
     string_t **str_split_ar = malloc(sizeof(*str_split_ar) * cnt);
+    if (str_split_ar == NULL)
+    {
+        abort();
+    }
     str_split_ar[cnt - 1] = NULL;
 
     size_t pos = 0;
