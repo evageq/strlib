@@ -52,7 +52,7 @@ string_t *string_insert_string(string_t *dst, const string_t *src,
 string_t *string_insert_len(string_t *dst, const char_t *src, ssize_t pos,
                             ssize_t len);
 
-string_t *string_erase(string_t *str, size_t start, size_t len);
+string_t *string_erase(string_t *str, size_t start, ssize_t len);
 
 bool string_compare(const string_t *str1, const string_t *str2);
 int string_compare_lexic(const string_t *str1, const string_t *str2);
@@ -80,7 +80,7 @@ string_t *string_prepend_string(string_t *dst, const string_t *src);
         string_t *: string_prepend_string)(dst, src)
 string_t *string_prepend_len(string_t *str, const char_t *s, size_t len);
 
-string_t** string_split(string_t *str, char_t sep);
+string_t **string_split(string_t *str, char_t sep);
 void string_split_free(string_t **ar);
 
 void string_free(string_t *str);

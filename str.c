@@ -326,6 +326,36 @@ string_compare_lexic(const string_t *str1, const string_t *str2)
     }
 }
 
+string_t *
+string_erase(string_t *str, size_t start, ssize_t len)
+{
+    size_t end;
+
+    if (start >= str->len)
+    {
+        return str;
+    }
+
+    if (len <= 0 || start + len >= str->len)
+    {
+        end = str->len;
+    }
+    else
+    {
+        end = start + len;
+    }
+
+    assert(end <= str->len);
+
+    string_t *tmp = string_new(str->buf + end);
+    str->len = str->len - (end - start);
+    memcpy(str->buf + start, tmp->buf, tmp->len);
+    str->buf[str->len] = '\0';
+    string_free(tmp);
+
+    return str;
+}
+
 string_t **
 string_split(string_t *str, char_t sep)
 {
